@@ -1,0 +1,44 @@
+<aura:component controller="messageGunController" implements="flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+
+    <aura:attribute name="mcApiKey" type="String" />
+    <aura:attribute name="mobileNumber" type="String" />
+    <aura:attribute name="mcKeyword" type="String" />
+    <aura:attribute name="mcClientId" type="String" />
+    <aura:attribute name="mcClientSecret" type="String" />
+    <aura:attribute name="recordId" type="String" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <!--component markup goes below here -->
+    <div class="slds-card">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-standard-contact" title="SMS Icon">
+                        <svg class="slds-icon slds-icon_small" aria-hidden="true">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#sms" />
+                        </svg>
+                    </span>
+                </div>
+                <div class="slds-media__body">
+                    <h2>
+                        <span class="slds-text-heading_small">Message Gun</span>
+                    </h2>
+                </div>
+            </header>
+            <div class="slds-no-flex">
+                <div class="slds-form slds-form_stacked">
+                    <div class="slds-form-element">
+                        <lightning:input aura:id="mobileNumber" label="Mobile" Placeholder="{!v.mobileNumber}" required="true" />
+                    </div>
+                    <div class="slds-form-element">
+                        <lightning:input aura:id="message" label="Message" required="true" maxlength="140" />
+                    </div>
+                    <div class="slds-form-element">
+                        <lightning:button aura:id="submit" type="submit" label="Send eeet!" onClick="{!c.sendSMS}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</aura:component>
