@@ -1,36 +1,14 @@
 ({
-    doInit: function (component, event) {
+    doInit: function (component, event, helper) {
 
-        var action = component.get("c.getMobileNumber");
-        action.setParams({
-            recordId: component.get("v.recordId")
-        });
+        //run two init functions, get mobile number and user ID
+        helper.initMobileNumber(component, event);
 
-        action.setCallback(this, function (response) {
-            var state = response.getState();
-
-            if (state == "SUCCESS") {
-                //mobile number returned, set it in the attribute
-                var returnedContact = response.getReturnValue();
-                component.set("v.mobileNumber", returnedContact.MobilePhone);
-                console.log('mobile number is: ' + component.get('v.mobileNumber'));
-            } else if (state == "ERROR") {
-                var errors = response.getError();
-                if (errors) {
-                    if (errors[0] && errors[0].message) {
-                        console.log("Error message: " +
-                            errors[0].message);
-                    }
-                } else {
-                    console.log("Unknown error");
-                }
-            }
-        });
-
-        $A.enqueueAction(action);
+        helper.initUserId(component, event);
+        
     },
 
-    sendSMS: function (component, event) {
+    sendSMS: function (component, event, helper) {
 
         //grab the message text first
         var messageText = component.get('v.messageBody');
@@ -63,6 +41,8 @@
                     message: "SMS Id: " + tokenId + " has been delivered successfully."
                 });
                 toastEvent.fire();
+                //log a call with the details
+                helper.logCall(component, event, tokenId, messageText);
 
                 //clear the form to send next message
                 component.set('v.messageBody', null);

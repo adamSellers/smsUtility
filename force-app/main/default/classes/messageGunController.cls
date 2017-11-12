@@ -83,4 +83,12 @@ public class messageGunController {
 
     }
 
+    //method to get the active user ID
+    @AuraEnabled
+    public static Id getUserId() {
+
+        Id userId = UserInfo.getUserId();
+        return userId;
+    }
+
 }
