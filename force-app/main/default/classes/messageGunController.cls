@@ -2,6 +2,7 @@ public class messageGunController {
     
     //this class is to be used to send SMS messages to marketing cloud
     //this is the message method.
+    @AuraEnabled
     public static String sendMessage(String mobileNumber, 
                                     String messageText, 
                                     String mcKeyword, 
@@ -15,7 +16,6 @@ public class messageGunController {
         String endPoint = 'https://www.exacttargetapis.com/sms/v1/messageContact/'+ mcApikey +'/send';
 
         //body is the marketing cloud payload built from two params passed in above. 
-        // TODO - this keyword is hardcoded, need to move to paramater also. 
 		String body = '{"mobileNumbers": ["' + mobileNumber + '"],"Override": true,"messageText": "' + messageText + '","Subscribe": true,"Resubscribe": true,"keyword": "' + mcKeyword + '"}';
         
         //build out the call to Marketing Cloud - TODO: add another parameter for the message ID in the endpoint. 
@@ -74,6 +74,7 @@ public class messageGunController {
 
     //method on init to grab customer's mobile number
     //TODO - clean this up a bit.. some regex on the number format to make it a little more robust would be nice
+    @AuraEnabled
     public static Contact getMobileNumber(String recordId) {
 
         Contact mobileNumber = [SELECT Id, FirstName, LastName, MobilePhone from Contact where Id =: recordId];
