@@ -91,4 +91,23 @@ public class messageGunController {
         return userId;
     }
 
+    //method to create the related task
+    @AuraEnabled
+    public static void insertTask(String description, String ownerId, String contactId ) {
+
+        //create the task record
+        Task smsCreated = new Task(
+            Description = description,
+            Priority = 'Normal',
+            Status = 'Complete',
+            Subject = 'SMS Logged',
+            OwnerId = ownerId,
+            TaskSubType = 'Call',
+            WhoId = contactId,
+            ActivityDate = Date.today()
+        );
+
+        insert smsCreated;
+    }
+
 }
