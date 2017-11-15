@@ -25,7 +25,7 @@
             <lightning:button variant="brand" aura:id="submit" type="submit" label="Submit" onclick="{!c.sendSMS}" />
         </aura:set>
         <p class="slds-p-horizontal_small">
-            <lightning:input aura:id="richText" name="richText" label="Message" value="{!v.messageBody}" />
+            <lightning:input aura:id="richText" name="richText" label="Message" value="{!v.messageBody}" maxlength="140" />
         </p>
     </lightning:card>
 

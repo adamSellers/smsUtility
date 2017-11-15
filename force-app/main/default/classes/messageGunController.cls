@@ -39,7 +39,7 @@ public class messageGunController {
         
     }
     
-    private static String getToken(String mcClientId, String mcClientSecret) {
+    public static String getToken(String mcClientId, String mcClientSecret) {
 
         /* This is the method that will get the auth token from MC API. 
         * This gets called every time to ensure we don't get an 'unauthorised' error 
