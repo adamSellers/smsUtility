@@ -4,10 +4,12 @@ private class MessageGunControllerTest {
     //next we test the Marketing Cloud SMS Service
     @isTest static void testMessage() {
         //setup Mock class
-       Test.setMock(HttpCalloutMock.class, new MarketingCloudMessageMock());
+        test.startTest();
+        Test.setMock(HttpCalloutMock.class, new MarketingCloudMessageMock());
 
         //call the Marketing Cloud Login Method from MessageGunController
         String res = MessageGunController.sendMessage('61424045767', 'messageText', 'mcKeyword', 'mcApikey', 'mcClientId', 'mcClientSecret');
+        test.stopTest();
 
         System.debug('testMessage() method being executed');
 
