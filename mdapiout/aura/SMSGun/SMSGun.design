@@ -1,0 +1,6 @@
+<design:component label="Direct SMS">
+    <design:attribute name="mcKeyword" label="MC Keyword" description="The corresponding keyword in Marketing Cloud" />
+    <design:attribute name="mcApiKey" label="MC API Key" description="This is your Marketing Cloud SMS API Key" />
+    <design:attribute name="mcClientId" label="MC Client ID" description="Your Marketing Cloud Client ID" />
+    <design:attribute name="mcClientSecret" label="MC Client Secret" description="Your Marketing Cloud client secret" />
+</design:component>
