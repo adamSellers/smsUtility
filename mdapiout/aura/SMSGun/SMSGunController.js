@@ -62,6 +62,17 @@
         });
 
         $A.enqueueAction(action);
+    },
+    onKeyPress: function(component, event, helper) {
+
+        console.log('everything: ' + JSON.stringify(event.getParams()));
+        console.log('keycode: ' + event.getParams().keyCode);
+
+        if(event.getParams().keyCode === 13) {
+
+            window.alert('you hit enter!');
+        }
+
     }
 
 })

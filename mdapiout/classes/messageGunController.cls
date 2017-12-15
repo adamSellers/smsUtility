@@ -1,4 +1,4 @@
-public class messageGunController {
+public with sharing class messageGunController {
     
     //this class is to be used to send SMS messages to marketing cloud
     //this is the message method.
