@@ -11,7 +11,7 @@ public with sharing class messageGunController {
                                     String mcClientSecret) {
         
         //see below for token stuff
-        String tokenId; //for returning to the LC
+        String tokenId; //for returning to the component
         String auth = messageGunController.getToken(mcClientId, mcClientSecret);
         String endPoint = 'https://www.exacttargetapis.com/sms/v1/messageContact/'+ mcApikey +'/send';
 
@@ -72,13 +72,14 @@ public with sharing class messageGunController {
         return token;
     }
 
-    //method on init to grab customer's mobile number
-    //TODO - clean this up a bit.. some regex on the number format to make it a little more robust would be nice
+    //method on init to grab customer's contact record
     @AuraEnabled
     public static Contact getMobileNumber(String recordId) {
 
         Contact mobileNumber = [SELECT Id, FirstName, LastName, MobilePhone from Contact where Id =: recordId];
 
+        //clean up the mobile phone field in this contact record
+        mobileNumber.MobilePhone = mobileNumber.MobilePhone.replaceAll('[^0-9]', '');
         return mobileNumber;
 
     }

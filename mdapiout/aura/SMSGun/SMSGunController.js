@@ -5,7 +5,7 @@
         helper.initMobileNumber(component, event);
 
         helper.initUserId(component, event);
-        
+
     },
 
     sendSMS: function (component, event, helper) {
@@ -27,26 +27,32 @@
         action.setCallback(this, function (response) {
 
             var state = response.getState();
-
+            
             if (state == "SUCCESS") {
-                
                 var tokenId = response.getReturnValue();
-
-                console.log('success! Token Id is: ' + JSON.stringify(tokenId));
                 
-                var toastEvent = $A.get("e.force:showToast");
-                toastEvent.setParams({
-                    title: "Success!",
-                    type : "success",
-                    message: "SMS Id: " + tokenId + " has been delivered successfully."
-                });
-                toastEvent.fire();
-                //log a call with the details
-                helper.logCall(component, event, tokenId, messageText);
-
+                if (tokenId) {
+                    var toastEvent = $A.get("e.force:showToast");
+                    toastEvent.setParams({
+                        title: "Success!",
+                        type: "success",
+                        message: "SMS Id: " + tokenId + " has been delivered successfully."
+                    });
+                    toastEvent.fire();
+                    //log a call with the details
+                    helper.logCall(component, event, tokenId, messageText);
+                } else {
+                    var toastEvent = $A.get("e.force:showToast");
+                    toastEvent.setParams({
+                        title: "Oops!",
+                        type: "error",
+                        message: "Message not delivered, ensure country code on mobile number is correct."
+                    });
+                    toastEvent.fire();
+                }
                 //clear the form to send next message
                 component.set('v.messageBody', null);
-                
+
             } else if (state == "ERROR") {
                 var errors = response.getError();
                 if (errors) {
@@ -58,21 +64,7 @@
                     console.log("Unknown error");
                 }
             }
-
         });
-
         $A.enqueueAction(action);
-    },
-    onKeyPress: function(component, event, helper) {
-
-        console.log('everything: ' + JSON.stringify(event.getParams()));
-        console.log('keycode: ' + event.getParams().keyCode);
-
-        if(event.getParams().keyCode === 13) {
-
-            window.alert('you hit enter!');
-        }
-
     }
-
 })

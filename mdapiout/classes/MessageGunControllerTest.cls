@@ -101,5 +101,9 @@ private class MessageGunControllerTest {
         // The following code runs as user 'u'
         messageGunController.insertTask(description, ownerId, contactId);
         }
+
+        //assert that the task has been created
+        Task checkTask = [SELECT Id, WhoId from Task WHERE ownerId =: ownerId];
+        System.assertEquals(contactId, checkTask.whoId);
     }
 }

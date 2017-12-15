@@ -47,7 +47,7 @@
                 //mobile number returned, set it in the attribute
                 var returnedContact = response.getReturnValue();
                 component.set("v.mobileNumber", returnedContact.MobilePhone);
-                console.log('mobile number is: ' + component.get('v.mobileNumber'));
+
             } else if (state == "ERROR") {
                 var errors = response.getError();
                 if (errors) {
@@ -60,9 +60,7 @@
                 }
             }
         });
-
         $A.enqueueAction(action);
-
     },
 
     initUserId: function (component, event) {
@@ -76,7 +74,7 @@
                 //user ID returned, set it in the attribute
                 var returnedId = response.getReturnValue();
                 component.set("v.userId", returnedId);
-                console.log('user ID is: ' + component.get('v.userId'));
+
             } else if (state == "ERROR") {
                 var errors = response.getError();
                 if (errors) {
@@ -89,8 +87,6 @@
                 }
             }
         });
-
         $A.enqueueAction(action);
-
     }
 })
