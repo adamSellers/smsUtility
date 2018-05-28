@@ -8,7 +8,6 @@
       "versionNumber": "1.0.0.NEXT"
     }
   ],
-  "namespace": "asdx",
   "sfdcLoginUrl": "https://login.salesforce.com",
   "sourceApiVersion": "42.0"
 }
