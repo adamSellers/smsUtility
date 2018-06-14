@@ -13,6 +13,7 @@ public with sharing class messageGunController {
         //see below for token stuff
         String tokenId; //for returning to the component
         String auth = messageGunController.getToken(mcClientId, mcClientSecret);
+        System.debug('auth token received! it is: ' + auth);
         String endPoint = 'https://www.exacttargetapis.com/sms/v1/messageContact/'+ mcApikey +'/send';
 
         //body is the marketing cloud payload built from two params passed in above. 
@@ -32,7 +33,8 @@ public with sharing class messageGunController {
         //TODO - errors.. meh!
         if(response.getStatusCode() == 202) {
             Map<String, Object> results = (Map<String, Object>) JSON.deserializeUntyped(response.getBody());
-            tokenId = (String) results.get('tokenId');            
+            tokenId = (String) results.get('tokenId');
+            System.debug('token received: ' + tokenId);           
         }
 
         return tokenId;
@@ -76,11 +78,11 @@ public with sharing class messageGunController {
     @AuraEnabled
     public static Contact getMobileNumber(String recordId) {
 
-        Contact mobileNumber = [SELECT Id, FirstName, LastName, MobilePhone from Contact where Id =: recordId];
+        Contact mobileRecord = [SELECT Id, FirstName, LastName, MobilePhone from Contact where Id =: recordId];
 
         //clean up the mobile phone field in this contact record
-        mobileNumber.MobilePhone = mobileNumber.MobilePhone.replaceAll('[^0-9]', '');
-        return mobileNumber;
+        mobileRecord.MobilePhone = mobileRecord.MobilePhone.replaceAll('[^0-9]', '');
+        return mobileRecord;
 
     }
 
@@ -96,19 +98,36 @@ public with sharing class messageGunController {
     @AuraEnabled
     public static void insertTask(String description, String ownerId, String contactId ) {
 
-        //create the task record
-        Task smsCreated = new Task(
-            Description = description,
-            Priority = 'Normal',
-            Status = 'Complete',
-            Subject = 'SMS Logged',
-            OwnerId = ownerId,
-            TaskSubType = 'Call',
-            WhoId = contactId,
-            ActivityDate = Date.today()
-        );
+        // check isCreateable at all Field Levels and object level
+        if (Schema.SObjectType.Task.isCreateable() &&
+            Schema.sObjectType.Task.fields.Description.isCreateable() && 
+            Schema.sObjectType.Task.fields.Priority.isCreateable() &&
+            Schema.sObjectType.Task.fields.Status.isCreateable() &&
+            Schema.sObjectType.Task.fields.Subject.isCreateable() &&
+            Schema.sObjectType.Task.fields.OwnerId.isCreateable() &&
+            Schema.sObjectType.Task.fields.TaskSubType.isCreateable() &&
+            Schema.sObjectType.Task.fields.WhoId.isCreateable() &&
+            Schema.sObjectType.Task.fields.ActivityDate.isCreateable()) {
 
-        insert smsCreated;
+            //create the task record
+            Task smsCreated = new Task(
+                Description = description,
+                Priority = 'Normal',
+                Status = 'Complete',
+                Subject = 'SMS Logged',
+                OwnerId = ownerId,
+                TaskSubType = 'Call',
+                WhoId = contactId,
+                ActivityDate = Date.today()
+            );
+            insert smsCreated;
+        } else {
+            // throw an exception to the user that they don't have access
+            NoAccessException noAccess = new NoAccessException();
+            noAccess.setMessage('User doesn\'t have create task permissions');
+            throw noAccess;
+        } 
+        
     }
 
 }

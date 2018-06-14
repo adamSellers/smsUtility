@@ -7,7 +7,7 @@
         //now we setup the params of the record we'd like to create
         var action = component.get("c.insertTask");
         action.setParams({
-            description: 'Marketing Cloud SMS ID: ' + tokenId + ' was logged. Message body: [' + messageText + ']',
+            description: messageText + ' | Params: {MarketingCloudId: ' + tokenId + '}',
             ownerId: userId,
             contactId: recordId
         });
