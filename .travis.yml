@@ -21,3 +21,7 @@ before_install:
   --username $USERNAME --setdefaultdevhubusername -a HubOrg
 script:
 - sfdx force:org:list
+- sfdx force:org:create -a sms -f config/project-scratch-def.json --wait 3
+- sfdx force:source:push -u sms
+- sfdx force:apex:test:run -u sms --wait 3
+- sfdx force:org:delete -u sms
