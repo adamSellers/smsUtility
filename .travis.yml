@@ -4,9 +4,6 @@ cache: false
 env:
 - URL=https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
 before_install:
-- unset CI 
-- unset TRAVIS 
-- unset CONTINUOUS_INTEGRATION
 - openssl aes-256-cbc -K $encrypted_520ca9e958ed_key -iv $encrypted_520ca9e958ed_iv
   -in assets/server.key.enc -out assets/server.key -d
 - export SFDX_AUTOUPDATE_DISABLE=false
@@ -21,10 +18,10 @@ before_install:
 - sfdx --version
 - sfdx plugins --core
 - sfdx force:auth:jwt:grant --clientid $CONSUMERKEY --jwtkeyfile assets/server.key
-  --username $USERNAME --setdefaultdevhubusername -a HubOrg
+  --username $USERNAME --setdefaultdevhubusername -a defaultdev
 script:
 - sfdx force:org:list
-- sfdx force:org:create -a sms -f config/project-scratch-def.json --wait 3
+- sfdx force:org:create -v defaultdev -a sms -f config/project-scratch-def.json --wait 3
 - sfdx force:source:push -u sms
 - sfdx force:apex:test:run -u sms --wait 3
 - sfdx force:org:delete -u sms
