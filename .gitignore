@@ -1,5 +1,5 @@
 .sfdx
-# force-app/main/default/flexipages/
+# git force-app/main/default/flexipages/
 .vscode
 mdapiout
 /assets/server.key
