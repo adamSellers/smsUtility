@@ -52,8 +52,6 @@ private class MessageGunControllerTest {
 
     }
 
-
-
     //next test is the call to get the active user id
     @isTest static void testGetUserId() {
         //create the test user
@@ -82,23 +80,35 @@ private class MessageGunControllerTest {
     }
 
     //finally, we test the insertion of the task 
-    @isTest static void testCreateTask() {
+    @isTest static void testValidCreateTask() {
 
-        //create a user
-        String uniqueUserName = 'anyolduser' + DateTime.now().getTime() + '@testorg.com';
-        Profile p = [SELECT Id FROM Profile WHERE Name='Standard User'];
-        User u = new User(  Alias = 'anyold', 
+        //create a user with task access
+        String uniqueUser1 = 'anyolduser' + DateTime.now().getTime() + '@testorg.com';
+        Profile p1 = [SELECT Id FROM Profile WHERE Name='Standard User'];
+        User u1 = new User(  Alias = 'anyold', 
                             Email ='anyolduser@testorg.com',
                             EmailEncodingKey='UTF-8', 
                             LastName='User', 
                             LanguageLocaleKey='en_US',
                             LocaleSidKey='en_US', 
-                            ProfileId = p.Id,
+                            ProfileId = p1.Id,
                             TimeZoneSidKey='America/Los_Angeles',
-                            UserName=uniqueUserName);
-        insert u;
+                            UserName=uniqueUser1);
+        insert u1;
 
-        System.debug('User details are: ' + u.LastName + u.Id);
+        // create a user without task access
+        String uniqueUser2 = 'anyolduser2' + DateTime.now().getTime() + '@testorg.com';
+        Profile p2 = [SELECT Id FROM Profile WHERE Name='Chatter Free User'];
+        User u2 = new User(  Alias = 'anyold', 
+                            Email ='anyolduser2@testorg.com',
+                            EmailEncodingKey='UTF-8', 
+                            LastName='User', 
+                            LanguageLocaleKey='en_US',
+                            LocaleSidKey='en_US', 
+                            ProfileId = p2.Id,
+                            TimeZoneSidKey='America/Los_Angeles',
+                            UserName= uniqueUser2);
+        insert u2;
 
         //create a contact
         Contact testContact = new Contact(
@@ -110,17 +120,35 @@ private class MessageGunControllerTest {
         
         //create the vars
         String description = 'This is a tast';
-        String ownerId = u.Id;
+        String ownerId = u1.Id;
         String contactId = testContact.Id;
         
-        //insert the task as user
-        System.runAs(u) {
-        // The following code runs as user 'u'
-        messageGunController.insertTask(description, ownerId, contactId);
+        //insert the task as u1
+        test.startTest();
+        Boolean catchMe = false;
+        try {
+            System.runAs(u1) {
+                // The following code runs as user 'u'
+                messageGunController.insertTask(description, ownerId, contactId);
+            }
+        } catch (Exception NoAccessException) {
+            catchMe = true;
         }
+
+        // insert the task as u2
+        try {
+            System.runAs(u2) {
+                // The following code runs as user 'u'
+                messageGunController.insertTask(description, ownerId, contactId);
+            }
+        } catch (Exception NoAccessException) {
+            catchMe = true;
+        }
+        test.stopTest();
 
         //assert that the task has been created
         Task checkTask = [SELECT Id, WhoId from Task WHERE ownerId =: ownerId];
         System.assertEquals(contactId, checkTask.whoId);
+        System.assertEquals(true, catchMe);
     }
 }
