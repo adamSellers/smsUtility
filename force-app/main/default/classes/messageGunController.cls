@@ -79,12 +79,10 @@ public with sharing class messageGunController {
     public static Contact getMobileNumber(String recordId, String sObjectName) {
 
         Contact mobileRecord = new Contact();
-        System.debug('sObject name is: ' + sObjectName);
 
         // use a switch statement!
         switch on sObjectName {
             when 'Case' {
-                System.debug('Object Name is Case');
                 String contactId = [SELECT Contact.Id from Case where Id =: recordId].Contact.Id;
                 mobileRecord = [SELECT Id, FirstName, LastName, MobilePhone from Contact where Id =: contactId];
             }

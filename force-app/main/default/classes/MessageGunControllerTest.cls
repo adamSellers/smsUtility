@@ -31,38 +31,55 @@ private class MessageGunControllerTest {
 
         insert testContact;
 
-        //now call the method
-        Contact calledContact = MessageGunController.getMobileNumber(testContact.Id);
-        String actual = calledContact.MobilePhone;
-        System.assertEquals('61424045767', actual);
+        // create a case 
+        Case testCase = new Case(
+            Status = 'New',
+            Origin = 'Phone',
+            ContactId = testContact.Id
+        );
+
+        insert testCase;
+
+        //now call the method for the contact use case
+        Contact calledContact = MessageGunController.getMobileNumber(testContact.Id, 'Contact');
+        String contactActual = calledContact.MobilePhone;
+        System.assertEquals('61424045767', contactActual);
+
+        //next we call the method for the case use case
+        Contact calledCaseContact = MessageGunController.getMobileNumber(testCase.Id, 'Case');
+        String caseActual = calledCaseContact.MobilePhone;
+        System.assertEquals('61424045767', caseActual);
 
     }
 
 
+
     //next test is the call to get the active user id
-    // @isTest static void testGetUserId() {
-    //     //create the test user
-    //     String uniqueUserName = 'anyolduser' + DateTime.now().getTime() + '@testorg.com';
-    //     Profile p = [SELECT Id FROM Profile WHERE Name='Standard User'];
-    //     User u = new User(  Alias = 'anyold', 
-    //                         Email ='anyolduser@testorg.com',
-    //                         EmailEncodingKey='UTF-8', 
-    //                         LastName='User', 
-    //                         LanguageLocaleKey='en_US',
-    //                         LocaleSidKey='en_US', 
-    //                         ProfileId = p.Id,
-    //                         TimeZoneSidKey='America/Los_Angeles',
-    //                         UserName=uniqueUserName);
+    @isTest static void testGetUserId() {
+        //create the test user
+        String uniqueUserName = 'anyolduser' + DateTime.now().getTime() + '@testorg.com';
+        Profile p = [SELECT Id FROM Profile WHERE Name='Standard User'];
+        User u = new User(  Alias = 'anyold', 
+                            Email ='anyolduser@testorg.com',
+                            EmailEncodingKey='UTF-8', 
+                            LastName='User', 
+                            LanguageLocaleKey='en_US',
+                            LocaleSidKey='en_US', 
+                            ProfileId = p.Id,
+                            TimeZoneSidKey='America/Los_Angeles',
+                            UserName=uniqueUserName);
 
-    //     System.runAs(u) {
-    //           // The following code runs as user 'u'
-    //           Id actual = messageGunController.getUserId(u.Id);
-    //           Id expected = u.Id;
-    //           System.assertEquals(expected, actual);
+        insert u;
 
-    //       }
+        System.runAs(u) {
+            // The following code runs as user 'u'
+            Id actual = messageGunController.getUserId();
+            Id expected = u.Id;
+            System.assertEquals(expected, actual);
 
-    // }
+        }
+
+    }
 
     //finally, we test the insertion of the task 
     @isTest static void testCreateTask() {
