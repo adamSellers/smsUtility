@@ -21,7 +21,7 @@ before_install:
   --username $USERNAME --setdefaultdevhubusername -a defaultdev
 script:
 - sfdx force:org:list
-- sfdx force:org:create -v defaultdev -a sms -f config/project-scratch-def.json --wait 3 --loglevel error
+- sfdx force:org:create -v defaultdev -a sms -f config/project-scratch-def.json --wait 3 --loglevel error --json
 - sfdx force:source:push -u sms
 - sfdx force:apex:test:run -u sms --wait 3
 - sfdx force:org:delete -u sms
