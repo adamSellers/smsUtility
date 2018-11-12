@@ -76,9 +76,22 @@ public with sharing class messageGunController {
 
     //method on init to grab customer's contact record
     @AuraEnabled
-    public static Contact getMobileNumber(String recordId) {
+    public static Contact getMobileNumber(String recordId, String sObjectName) {
 
-        Contact mobileRecord = [SELECT Id, FirstName, LastName, MobilePhone from Contact where Id =: recordId];
+        Contact mobileRecord = new Contact();
+        System.debug('sObject name is: ' + sObjectName);
+
+        // use a switch statement!
+        switch on sObjectName {
+            when 'Case' {
+                System.debug('Object Name is Case');
+                String contactId = [SELECT Contact.Id from Case where Id =: recordId].Contact.Id;
+                mobileRecord = [SELECT Id, FirstName, LastName, MobilePhone from Contact where Id =: contactId];
+            }
+            when 'Contact' {
+                mobileRecord = [SELECT Id, FirstName, LastName, MobilePhone from Contact where Id =: recordId];
+            }
+        }
 
         //clean up the mobile phone field in this contact record
         mobileRecord.MobilePhone = mobileRecord.MobilePhone.replaceAll('[^0-9]', '');

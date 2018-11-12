@@ -4,5 +4,6 @@
     "orgPreferences" : {
         "enabled": ["S1DesktopEnabled"]
     },
-    "features": ["DebugApex"]
+    "features": ["DebugApex"],
+    "hasSampleData": "true"
 }
