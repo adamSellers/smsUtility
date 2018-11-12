@@ -1,4 +1,4 @@
-<aura:component controller="messageGunController" implements="flexipage:availableForRecordHome,force:hasRecordId" access="global">
+<aura:component controller="messageGunController" implements="flexipage:availableForRecordHome,force:hasRecordId,force:HasSObjectName" access="global">
 
     <aura:attribute name="mcApiKey" type="String" required="true" access="global" />
     <aura:attribute name="messageBody" type="String" />

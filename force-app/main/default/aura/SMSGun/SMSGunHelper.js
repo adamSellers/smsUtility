@@ -35,15 +35,19 @@
 
     initMobileNumber: function (component, event) {
 
+        console.log('initialising the mobile number');
+
         var action = component.get("c.getMobileNumber");
         action.setParams({
-            recordId: component.get("v.recordId")
+            recordId: component.get("v.recordId"),
+            sObjectName: component.get("v.sObjectName")
         });
 
         action.setCallback(this, function (response) {
             var state = response.getState();
 
             if (state == "SUCCESS") {
+                console.log("has returned from the server trip on mobile init");
                 //mobile number returned, set it in the attribute
                 var returnedContact = response.getReturnValue();
                 component.set("v.mobileNumber", returnedContact.MobilePhone);

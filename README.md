@@ -15,15 +15,15 @@ git clone https://github.com/adamSellers/smsUtility.git
 ````
 Then, create a fresh scratch org.
 ````
-sfdx force:org:create -a whatacoolscratchorgnameicreated
+sfdx force:org:create -a sms -s -f config/project-scratch-def.json
 ````
 Source push the world!
 ````
-sfdx force:source:push -u whatacoolscratchorgnameicreated
+sfdx force:source:push
 ````
 enjoy the goodness..
 ````
-sfdx force:org:open -u whatacoolscratchorgnameicreated
+sfdx force:org:open
 ````
 
 ## Description of Files and Directories
@@ -34,11 +34,12 @@ Repo contains:
 - Test class (eww) for said controller
 - Remote site settings for Marketing Cloud API
 - Static resource (Marketing Cloud logo) for component file.
+- Flexipages for the org default setups for both the case and contact object
     
 ## Issues
 oh so many that I don't even know about yet... however, one issue that YOU will have..
 
-1. SMSGun.css file references my namespace, you'll want to change this bit 'background-image: url(/resource/sms_direct__mclogo) !important;' to not reference my namespace. 
+1. SMSGun.css file references my namespace, you'll want to change this bit 'background-image: url(/resource/sms_direct__mclogo) !important;' to not reference my namespace (the sms_direct bit). 
 
 Happy hacking!
 
