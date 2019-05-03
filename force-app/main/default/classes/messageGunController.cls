@@ -75,7 +75,7 @@ public with sharing class messageGunController {
     }
 
     //method on init to grab customer's contact record
-    @AuraEnabled
+    @AuraEnabled(cacheable=true)
     public static Contact getMobileNumber(String recordId, String sObjectName) {
 
         Contact mobileRecord = new Contact();
@@ -98,6 +98,7 @@ public with sharing class messageGunController {
     }
 
     //method to get the active user ID
+    // TODO - remove this method.. in lwc we don't need to do this now.
     @AuraEnabled
     public static Id getUserId() {
 
@@ -106,6 +107,7 @@ public with sharing class messageGunController {
     }
 
     //method to create the related task
+    // TODO - we should be able to remove the isCreateable checks with the lwc framework
     @AuraEnabled
     public static void insertTask(String description, String ownerId, String contactId ) {
 

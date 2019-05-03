@@ -1,9 +1,8 @@
 {
     "orgName": "asellers Company",
     "edition": "Developer",
-    "orgPreferences" : {
+    "orgPreferences": {
         "enabled": ["S1DesktopEnabled"]
     },
-    "features": ["DebugApex"],
-    "hasSampleData": "true"
+    "hasSampleData": true
 }
