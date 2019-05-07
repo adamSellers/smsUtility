@@ -7,10 +7,10 @@
     </targets>
     <targetConfigs>
         <targetConfig targets="lightning__RecordPage">
-            <property name="keyword" label="MC Keyword" type="String" />
-            <property name="apikey" label="MC API Key" type="String" />
-            <property name="clientId" label="MC API Client ID" type="String" />
-            <property name="clientSecret" label="MC API Client Secret" type="String" />
+            <property name="keyword" label="MC Keyword" type="String" default="AWESOMEKEYWORD" />
+            <property name="apikey" label="MC API Key" type="String" default="MTo3ODow"/>
+            <property name="clientId" label="MC API Client ID" type="String" default="mluu76fkl49quunmpnq3fdji" />
+            <property name="clientSecret" label="MC API Client Secret" type="String" default="h7FFqUoQ4x0ehNHyJMV3bof0"/>
             <objects>
                 <object>Case</object>
                 <object>Contact</object>
