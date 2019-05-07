@@ -16,10 +16,12 @@ import {
   wire,
   api
 } from 'lwc';
+import Id from '@salesforce/user/Id';
 
 // import the controller methods for getting userId
 import sendMessage from "@salesforce/apex/messageGunController.sendMessage";
 import getMobileNumber from '@salesforce/apex/messageGunController.getMobileNumber';
+import insertTask from '@salesforce/apex/messageGunController.insertTask';
 
 // import the platform services for the toast message
 import {
@@ -32,7 +34,7 @@ export default class DirectSms extends LightningElement {
    * to the API method **/
   @api objectApiName;
   @api recordId;
-
+  userId = Id;
   /* the following are taken from the component configs and are used to shoot the MC SMS**/
   @api keyword;
   @api apikey;
@@ -51,10 +53,31 @@ export default class DirectSms extends LightningElement {
 
   /* function for sending message to customer **/
   sendSMS() {
-    sendMessage()
+    sendMessage({
+      mobileNumber: this.mobileNumber.data.MobilePhone, 
+      messageText: this.messageBody, 
+      mcKeyword: this.keyword, 
+      mcApikey: this.apikey, 
+      mcClientId: this.clientId, 
+      mcClientSecret: this.clientSecret})
       .then(result => {
-        console.log('the mobile number is: ' + JSON.stringify(this.mobileNumber));
-        console.log('this was a success: ' + JSON.stringify(result));
+        let mcTokenId = result;
+        // insert task
+        // now insert the task
+        insertTask({
+          description: 'Message ID: ' + mcTokenId + ' delivered.',
+          ownerId: this.userId,
+          contactId: this.recordId
+        })
+        .then(() => {
+          // show toast notification and insert task
+          const toastEvent = new ShowToastEvent({
+            title: 'Message Sent',
+            variant: 'success',
+            message: 'MC Message ID: ' + mcTokenId + ' sent successfully'
+          });
+          this.dispatchEvent(toastEvent);
+        });
       })
       .catch(error => {
         console.log('this was an error: ' + JSON.stringify(error));
