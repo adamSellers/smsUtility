@@ -7,6 +7,9 @@ This is the code base for the Direct SMS AppExchange Salesforce Labs app that I 
 
 Setup Salesforce DX (link [here](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_develop.htm))
 
+This assumes you've already setup your marketing cloud SMS API endpoint and have the Keywork, APIKey, ClientID and ClientSecret 
+values for that endpoint. Be sure that your endpoints work in postman before attempting this! 
+
 
 ## Installation
 Firstly, clone this repo...
