@@ -65,9 +65,9 @@ export default class DirectSms extends LightningElement {
         // insert task
         // now insert the task
         insertTask({
-          description: 'Message ID: ' + mcTokenId + ' delivered.',
+          description: 'SMS Delivered successully: [' + this.messageBody + ']. Message ID: ' + mcTokenId,
           ownerId: this.userId,
-          contactId: this.recordId
+          contactId: this.mobileNumber.data.Id
         })
         .then(() => {
           // show toast notification and insert task
