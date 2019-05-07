@@ -1,0 +1,16 @@
+<template>
+  <lightning-card title="Direct SMS" icon-name="utility:sms">
+    <div slot="footer" class="mcfooter slds-p-around_small">
+      &nbsp;
+    </div>
+    <div slot="actions">
+      <lightning-button variant="brand" label="Send" title="Enter a message and hit send" onclick={sendSMS}>
+      </lightning-button>
+    </div>
+    <lightning-layout horizontal-align="spread" pull-to-boundary="around-small">
+      <lightning-layout-item size="12" padding="around-small">
+        <lightning-input name="richText" label="Message" onchange={updateMessageBody} maxlength="140"></lightning-input>
+      </lightning-layout-item>
+    </lightning-layout>
+  </lightning-card>
+</template>
