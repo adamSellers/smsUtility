@@ -80,7 +80,7 @@ export default class DirectSms extends LightningElement {
         });
       })
       .catch(error => {
-        console.log('this was an error: ' + JSON.stringify(error));
+        this.error = error;
       })
   }
 
