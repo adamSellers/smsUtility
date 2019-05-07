@@ -1,6 +1,4 @@
 # SFDX  App
-[![Build Status](https://travis-ci.org/adamSellers/smsUtility.svg?branch=master)](https://travis-ci.org/adamSellers/smsUtility)
-
 This is the code base for the Direct SMS AppExchange Salesforce Labs app that I created. If you want to check this out for yourself (and I recommend you do), then do the following. 
 
 ### Prerequisites
