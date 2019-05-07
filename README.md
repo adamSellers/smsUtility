@@ -29,17 +29,15 @@ sfdx force:org:open
 ## Description of Files and Directories
 Repo contains: 
 
-- SMS Component file (SMSGun.cmp), style, design, controller and helper files
+- Lightning Web Component Bundle - directSMS
+- Example of the Aura component - SMSGun component
 - MessageGunController.cls, apex class for said component
 - Test class (eww) for said controller
 - Remote site settings for Marketing Cloud API
 - Static resource (Marketing Cloud logo) for component file.
-- Flexipages for the org default setups for both the case and contact object
     
 ## Issues
-oh so many that I don't even know about yet... however, one issue that YOU will have..
-
-1. SMSGun.css file references my namespace, you'll want to change this bit 'background-image: url(/resource/sms_direct__mclogo) !important;' to not reference my namespace (the sms_direct bit). 
+oh so many that I don't even know about yet... log em if you find em :) 
 
 Happy hacking!
 
