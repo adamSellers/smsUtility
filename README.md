@@ -36,6 +36,9 @@ Repo contains:
 - Test class (eww) for said controller
 - Remote site settings for Marketing Cloud API
 - Static resource (Marketing Cloud logo) for component file.
+
+## TODO
+- Add Jest tests for LWC
     
 ## Issues
 oh so many that I don't even know about yet... log em if you find em :) 
