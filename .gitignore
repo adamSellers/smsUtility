@@ -5,3 +5,5 @@ mdapiout
 /assets/server.key
 temp
 
+# remove node stuff
+node_modules

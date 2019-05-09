@@ -1,0 +1,24 @@
+{
+  "name": "smsutility",
+  "version": "1.0.0",
+  "description": "A utility to send Marketing Cloud SMS from a contact or case record",
+  "main": "index.js",
+  "scripts": {
+    "test:unit": "lwc-jest",
+    "test:unit:watch": "lwc-jest --watch",
+    "test:unit:debug": "lwc-jest --debug"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adamSellers/smsUtility.git"
+  },
+  "author": "Adam Sellers",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adamSellers/smsUtility/issues"
+  },
+  "homepage": "https://github.com/adamSellers/smsUtility#readme",
+  "devDependencies": {
+    "@salesforce/lwc-jest": "^0.4.14"
+  }
+}
