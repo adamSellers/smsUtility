@@ -22,7 +22,7 @@ Source push the world!
 ````
 sfdx force:source:push
 ````
-enjoy the goodness..
+enjoy the goodness...
 ````
 sfdx force:org:open
 ````
