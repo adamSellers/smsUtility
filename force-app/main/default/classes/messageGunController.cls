@@ -14,7 +14,7 @@ public with sharing class messageGunController {
         String tokenId; //for returning to the component
         String auth = messageGunController.getToken(mcClientId, mcClientSecret);
         System.debug('auth token received! it is: ' + auth);
-        String endPoint = 'https://www.exacttargetapis.com/sms/v1/messageContact/'+ mcApikey +'/send';
+        String endPoint = 'https://mccxgj4wtk57zv7lvd4qg0kkzvf4.rest.marketingcloudapis.com/sms/v1/messageContact/'+ mcApikey +'/send';
 
         //body is the marketing cloud payload built from two params passed in above. 
 		String body = '{"mobileNumbers": ["' + mobileNumber + '"],"Override": true,"messageText": "' + messageText + '","Subscribe": true,"Resubscribe": true,"keyword": "' + mcKeyword + '"}';
@@ -56,7 +56,7 @@ public with sharing class messageGunController {
         // setup the http request to get the token
         Http http = new Http();
         HttpRequest request = new HttpRequest();
-        request.setEndpoint('https://auth.exacttargetapis.com/v1/requestToken');
+        request.setEndpoint('https://mccxgj4wtk57zv7lvd4qg0kkzvf4.auth.marketingcloudapis.com/v1/requestToken');
         request.setMethod('POST');
         request.setHeader('Content-Type', 'application/json');
         request.setBody(body);
