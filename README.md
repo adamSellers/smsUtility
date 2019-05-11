@@ -17,6 +17,12 @@ Firstly, clone this repo...
 git clone https://github.com/adamSellers/smsUtility.git
 ```
 
+Install the testing and linting tools.
+
+```
+npm i
+```
+
 Then, create a fresh scratch org.
 
 ```

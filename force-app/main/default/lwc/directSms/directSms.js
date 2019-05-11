@@ -11,7 +11,11 @@
  **/
 
 // import the necessary lwc elements
-import { LightningElement, wire, api } from 'lwc';
+import {
+    LightningElement,
+    wire,
+    api
+} from 'lwc';
 import Id from '@salesforce/user/Id';
 
 // import the controller methods for getting userId
@@ -20,7 +24,9 @@ import getMobileNumber from '@salesforce/apex/messageGunController.getMobileNumb
 import insertTask from '@salesforce/apex/messageGunController.insertTask';
 
 // import the platform services for the toast message
-import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import {
+    ShowToastEvent
+} from 'lightning/platformShowToastEvent';
 
 export default class DirectSms extends LightningElement {
     /* we need to grab the user's mobile number from either
@@ -48,21 +54,20 @@ export default class DirectSms extends LightningElement {
     /* function for sending message to customer **/
     sendSMS() {
         sendMessage({
-            mobileNumber: this.mobileNumber.data.MobilePhone,
-            messageText: this.messageBody,
-            mcKeyword: this.keyword,
-            mcApikey: this.apikey,
-            mcClientId: this.clientId,
-            mcClientSecret: this.clientSecret
-        })
+                mobileNumber: this.mobileNumber.data.MobilePhone,
+                messageText: this.messageBody,
+                mcKeyword: this.keyword,
+                mcApikey: this.apikey,
+                mcClientId: this.clientId,
+                mcClientSecret: this.clientSecret
+            })
             .then(result => {
                 let mcTokenId = result;
                 // insert task
                 // now insert the task
                 insertTask({
-                    description:
-                        this.messageBody +
-                        ' - [Deliverd by DirectSMS, message ID:' +
+                    description: this.messageBody +
+                        ' - [Delivered by DirectSMS, message ID:' +
                         mcTokenId +
                         ']',
                     ownerId: this.userId,
@@ -72,8 +77,7 @@ export default class DirectSms extends LightningElement {
                     const toastEvent = new ShowToastEvent({
                         title: 'Message Sent',
                         variant: 'success',
-                        message:
-                            'MC Message ID: ' + mcTokenId + ' sent successfully'
+                        message: 'MC Message ID: ' + mcTokenId + ' sent successfully'
                     });
                     this.dispatchEvent(toastEvent);
                 });
