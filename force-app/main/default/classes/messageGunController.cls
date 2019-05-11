@@ -118,7 +118,7 @@ public with sharing class messageGunController {
                 Description = description,
                 Priority = 'Normal',
                 Status = 'Complete',
-                Subject = 'SMS Logged',
+                Subject = 'Call',
                 OwnerId = ownerId,
                 TaskSubType = 'Call',
                 WhoId = contactId,
