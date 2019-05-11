@@ -97,15 +97,6 @@ public with sharing class messageGunController {
 
     }
 
-    //method to get the active user ID
-    // TODO - remove this method.. in lwc we don't need to do this now.
-    @AuraEnabled
-    public static Id getUserId() {
-
-        Id userId = UserInfo.getUserId();
-        return userId;
-    }
-
     //method to create the related task
     // TODO - we should be able to remove the isCreateable checks with the lwc framework
     @AuraEnabled
