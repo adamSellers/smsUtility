@@ -117,7 +117,7 @@ public with sharing class messageGunController {
             Task smsCreated = new Task(
                 Description = description,
                 Priority = 'Normal',
-                Status = 'Complete',
+                Status = 'Completed',
                 Subject = 'Call',
                 OwnerId = ownerId,
                 TaskSubType = 'Call',
