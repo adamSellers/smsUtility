@@ -19,6 +19,11 @@
         "type": "git",
         "url": "git+https://github.com/adamSellers/smsUtility.git"
     },
+    "dependencies": {
+        "y18n" : ">=3.2.2",
+        "is-svg" : ">=4.2.2",
+        "node-notifier" : ">8.0.1"
+    },
     "author": "Adam Sellers",
     "license": "ISC",
     "bugs": {
