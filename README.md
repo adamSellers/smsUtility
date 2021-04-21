@@ -59,16 +59,17 @@ sfdx force:org:open
 
 Repo contains:
 
--   Lightning Web Component Bundle - directSMS
--   Example of the Aura component - SMSGun component
--   MessageGunController.cls, apex class for said component
--   Test class (eww) for said controller
--   Remote site settings for Marketing Cloud API
--   Static resource (Marketing Cloud logo) for component file.
+- Lightning Web Component Bundle - directSMS
+- Example of the Aura component - SMSGun component
+- MessageGunController.cls, apex class for said component
+- Test class (eww) for said controller
+- Remote site settings for Marketing Cloud API
+- Static resource (Marketing Cloud logo) for component file.
 
 ## TODO
 
--   Add Jest tests for LWC
+- Add Jest tests for LWC
+- Move the remote site settings into settings or custom metadata etc.
 
 ## Issues
 
